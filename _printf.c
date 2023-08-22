@@ -11,6 +11,7 @@ format_specifier m[] = {
     {"%b", my_printf_bin},
     {"%x", my_printf_hex},
     {"%X", my_printf_HEX},
+    {"%%", my_printf_37},
     {"%r", my_printf_rev_string},
 };
 
@@ -30,7 +31,7 @@ int _printf(const char *format, ...)
         {
             if (strcmp(m[j].specifier, &format[i]) == 0)
             {
-                len += m[j].printer(args);
+                len += m[j].printer(args, format + i);
                 i += strlen(m[j].specifier);
                 break;
             }
@@ -46,4 +47,5 @@ int _printf(const char *format, ...)
     va_end(args);
     return (len);
 }
+
 
