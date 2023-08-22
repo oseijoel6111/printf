@@ -11,12 +11,13 @@ int my_printf_pointer(va_list args)
     char *null_string = "(nil)";
     unsigned long int hex_value;
     int printed_count = 0;
+    int i;
 
     ptr_value = va_arg(args, void *);
 
     if (ptr_value == NULL)
     {
-        for (int i = 0; null_string[i] != '\0'; i++)
+        for (i = 0; null_string[i] != '\0'; i++)
         {
             _putchar(null_string[i]);
             printed_count++;

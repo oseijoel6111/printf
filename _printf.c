@@ -1,51 +1,49 @@
 #include "main.h"
+#include <string.h>
 
-/**
- * custom_printf - Custom formatted output conversion and printing.
- * @fmt_str: Input format string.
- * Return: Number of characters printed.
- */
-int _printf(const char * const fmt_str, ...)
+format_specifier m[] = {
+    {"%s", my_printf_string},
+    {"%c", my_printf_char},
+    {"%i", my_printf_int},
+    {"%o", my_printf_oct},
+    {"%d", my_printf_dec},
+    {"%p", my_printf_pointer},
+    {"%b", my_printf_bin},
+    {"%x", my_printf_hex},
+    {"%X", my_printf_HEX},
+    {"%r", my_printf_rev_string},
+};
+
+int _printf(const char *format, ...)
 {
-    convert_match conv_list[] = {
-        {"%s", my_printf_string}, {"%c", my_printf_char},
-        {"%%", my_printf_percent},
-        {"%i", my_printf_int}, {"%d", my_printf_dec},
-        {"%r", my_printf_reversed}, {"%R", my_printf_rot13},
-        {"%b", my_printf_bin}, {"%u", my_printf_unsigned},
-        {"%o", my_printf_octal}, {"%x", my_printf_hex},
-        {"%X", my_printf_HEX}, {"%S", my_printf_special_string},
-        {"%p", my_printf_pointer}
-    };
+    va_list args;
+    int i = 0, j, len = 0;
 
-    va_list arg_list;
-    int fmt_idx = 0, conv_idx, chars_printed = 0;
-
-    va_start(arg_list, fmt_str);
-    if (fmt_str == NULL || (fmt_str[0] == '%' && fmt_str[1] == '\0'))
+    va_start(args, format);
+    if (format == NULL || (format[0] == '%' && format[1] == '\0'))
         return (-1);
 
-    while (fmt_str[fmt_idx] != '\0')
+    while (format[i] != '\0')
     {
-        conv_idx = 13;
-        while (conv_idx >= 0)
+        j = sizeof(m) / sizeof(m[0]) - 1;
+        while (j >= 0)
         {
-            if (conv_list[conv_idx].id[0] == fmt_str[fmt_idx] &&
-                conv_list[conv_idx].id[1] == fmt_str[fmt_idx + 1])
+            if (strcmp(m[j].specifier, &format[i]) == 0)
             {
-                chars_printed += conv_list[conv_idx].f(arg_list);
-                fmt_idx = fmt_idx + 2;
-                goto PrintLoop;
+                len += m[j].printer(args);
+                i += strlen(m[j].specifier);
+                break;
             }
-            conv_idx--;
+            j--;
         }
-        _putchar(fmt_str[fmt_idx]);
-        chars_printed++;
-        fmt_idx++;
-    PrintLoop:
-        continue;
+        if (j < 0)
+        {
+            _putchar(format[i]);
+            len++;
+            i++;
+        }
     }
-    va_end(arg_list);
-    return chars_printed;
+    va_end(args);
+    return (len);
 }
 

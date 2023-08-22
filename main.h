@@ -15,9 +15,9 @@ typedef struct formatter
 
 int my_printf_pointer(va_list val);
 int my_printf_hex_aux(unsigned long int num);
-int my_printf_HEX_aux(unsigned int num);
-int my_printf_exclusive_string(va_list val);
 int my_printf_HEX(va_list val);
+int my_printf_exclusive_string(va_list val);
+int my_printf_hex(va_list val);
 int my_printf_oct(va_list val);
 int my_printf_bin(va_list val);
 int my_printf_unsigned(va_list args);
@@ -43,5 +43,4 @@ int my_strlenc(const char *s);
 int my_rev_string(char *s);
 int *my_strcpy(char *dest, char *src);
 
-#endif
-
+#endif 

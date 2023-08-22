@@ -1,11 +1,11 @@
 #include "main.h"
 
 /**
- * custom_print_string - Custom function to print a string.
+ * my_print_string - Custom function to print a string.
  * @val: Argument.
  * Return: The length of the string.
  */
-int my_print_string(va_list val)
+int my_printf_string(va_list val)
 {
     char *input_str;
     int i, str_len;

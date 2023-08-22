@@ -7,11 +7,11 @@
  */
 int my_printf_hex_aux(unsigned long int num)
 {
-    long int digit;
     long int *digit_array;
     long int digit_count = 0;
     unsigned long int temp_num = num;
     int printed_count = 0;
+    int i;
 
     while (num / 16 != 0)
     {
@@ -21,17 +21,17 @@ int my_printf_hex_aux(unsigned long int num)
     digit_count++;
     digit_array = malloc(digit_count * sizeof(long int));
 
-    for (digit_count = 0; digit_count < digit_count; digit_count++)
+    for (i = 0; i < digit_count; i++)
     {
-        digit_array[digit_count] = temp_num % 16;
+        digit_array[i] = temp_num % 16;
         temp_num /= 16;
     }
     
-    for (digit_count = digit_count - 1; digit_count >= 0; digit_count--)
+    for (i = digit_count - 1; i >= 0; i--)
     {
-        if (digit_array[digit_count] > 9)
-            digit_array[digit_count] += 39;
-        _putchar(digit_array[digit_count] + '0');
+        if (digit_array[i] > 9)
+            digit_array[i] += 39;
+        _putchar(digit_array[i] + '0');
         printed_count++;
     }
     
